@@ -1,0 +1,25 @@
+{
+  "name": "solaredge-monitor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "clean": "rm -rf .build",
+    "build": "npm run clean && tsc",
+    "deploy": "npm run build && scp .build/index.js pi@pi3.local:/usr/local/solaredge/ && ssh pi@pi3.local 'pm2 delete solaredge || : && pm2 start /usr/local/solaredge/index.js --name solaredge'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jasonmitchell/solaredge-monitor.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jasonmitchell/solaredge-monitor/issues"
+  },
+  "homepage": "https://github.com/jasonmitchell/solaredge-monitor#readme",
+  "devDependencies": {
+    "@types/node": "^18.16.3",
+    "typescript": "^5.0.4"
+  }
+}
