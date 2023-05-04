@@ -27,7 +27,7 @@ npm run deploy
 Metrics are exposed for Prometheus:
 
 ```shell
- curl http://raspberrypi.local:3000/metrics
+ curl http://raspberrypi.local:9090/metrics
 ```
 
 ```
