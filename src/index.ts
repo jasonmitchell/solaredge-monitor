@@ -5,7 +5,7 @@ import { getEnergyOverview } from './solaredge-client';
 import { currentPower, lastDay, lastMonth, lastYear, lifeTime } from './metrics';
 
 const port = process.env.PORT || 9090;
-const fetchDataInterval = 1000 * 60 * 5; // 5 minutes
+const fetchDataInterval = 1000 * 60 * 2; // 2 minutes
 const apiKey = process.env.API_KEY as string;
 const siteId = process.env.SITE_ID as string;
 
