@@ -6,7 +6,7 @@ import { save } from '../persistence/energy-overview';
 export const start = async ({apiKey, siteId}: Config) => {
   console.log('Starting energy overview monitor');
 
-  cron.schedule('*/2 * * * *', async () => {
+  cron.schedule('0 */2 * * * *', async () => {
     const overview = await getEnergyOverview(apiKey, siteId);
     if (!overview) {
       console.warn('Failed to get energy overview')

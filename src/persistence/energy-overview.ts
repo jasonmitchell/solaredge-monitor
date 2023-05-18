@@ -16,6 +16,10 @@ export const latest = (): EnergyOverview | undefined => {
   return latestRecord.energyOverview;
 };
 
+export const reset = () => {
+  recordsForCurrentDay.length = 0;
+};
+
 export const save = (energyOverview: EnergyOverview) => {
   const timestamp = new Date();
   const date = timestamp.toISOString().split('T')[0];
