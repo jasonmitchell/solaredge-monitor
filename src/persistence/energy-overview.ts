@@ -8,7 +8,6 @@ type Record = {
 const recordsForCurrentDay: Record[] = [];
 
 export const latest = (): EnergyOverview | undefined => {
-  console.log('get latest')
   if (recordsForCurrentDay.length === 0) {
     return;
   }
