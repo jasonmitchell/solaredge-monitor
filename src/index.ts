@@ -2,12 +2,15 @@ import os from 'os';
 import client from 'prom-client';
 import { createMetricsServer } from './server';
 import * as jobs from './jobs';
-import { currentPower, lastDay, lastMonth, lastYear, lifeTime } from './metrics';
+import { register } from './metrics';
 
 const port = process.env.PORT || 9090;
 const config = {
   apiKey: process.env.API_KEY as string,
   siteId: process.env.SITE_ID as string,
+  weatherApiKey: process.env.WEATHER_API_KEY as string,
+  lat: process.env.LAT as string,
+  long: process.env.LONG as string
 };
 
 const registry = new client.Registry();
@@ -17,12 +20,7 @@ registry.setDefaultLabels({
 });
 
 client.collectDefaultMetrics({ register: registry });
-
-registry.registerMetric(lastDay);
-registry.registerMetric(lastMonth);
-registry.registerMetric(lastYear);
-registry.registerMetric(lifeTime);
-registry.registerMetric(currentPower);
+register(registry);
 
 const metricsServer = createMetricsServer(registry);
 
