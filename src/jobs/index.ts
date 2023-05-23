@@ -4,7 +4,7 @@ import * as setMetrics from './set-metrics';
 import * as dailyReset from './daily-reset';
 
 export const start = async (config: Config) => {
-  await energyOverview.start(config)
+  const energyOverviewJob = await energyOverview.start(config);
   setMetrics.start();
   dailyReset.start();
 }
