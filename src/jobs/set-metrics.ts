@@ -1,5 +1,5 @@
 import cron from 'node-cron';
-import { latest as latestOverview } from '../persistence/energy-overview';
+import { latestForCurrentDay as latestOverview } from '../persistence/energy-overview';
 import { latest as currentWeather } from '../persistence/weather';
 import {
   clouds,

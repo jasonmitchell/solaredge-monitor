@@ -5,19 +5,41 @@ type Record = {
   energyOverview: EnergyOverview;
 }
 
-const recordsForCurrentDay: Record[] = [];
+const records: Record[] = [];
 
-export const latest = (): EnergyOverview | undefined => {
-  if (recordsForCurrentDay.length === 0) {
+const latestRecord = (): Record | undefined => {
+  if (records.length === 0) {
     return;
   }
 
-  const latestRecord = recordsForCurrentDay[recordsForCurrentDay.length - 1];
-  return latestRecord.energyOverview;
+  return records[records.length - 1];
 };
 
+export const latestForCurrentDay = (): EnergyOverview => {
+  const latest = latestRecord();
+  const currentDate = new Date();
+
+  if (!latest || !datesAreSameDay(currentDate, new Date(latest.timestamp))) {
+    return {
+      lastDayData: { energy: 0 },
+      lastMonthData: { energy: 0 },
+      lastYearData: { energy: 0 },
+      lifeTimeData: { energy: 0 },
+      currentPower: { power: 0 }
+    }
+  }
+
+  return latest.energyOverview
+}
+
+const datesAreSameDay = (a: Date, b: Date) => {
+  return a.getFullYear() === b.getFullYear() &&
+         a.getMonth() === b.getMonth() &&
+         a.getDate() === b.getDate();
+}
+
 export const reset = () => {
-  recordsForCurrentDay.length = 0;
+  records.length = 0;
 };
 
 export const save = (energyOverview: EnergyOverview) => {
@@ -29,13 +51,13 @@ export const save = (energyOverview: EnergyOverview) => {
     energyOverview: energyOverview
   };
 
-  if (recordsForCurrentDay.length > 0) {
-    const latestRecord = recordsForCurrentDay[recordsForCurrentDay.length - 1];
+  if (records.length > 0) {
+    const latestRecord = records[records.length - 1];
     if (date !== latestRecord.timestamp.split('T')[0]) {
       // clear in memory records if day has changed
-      recordsForCurrentDay.length = 0;
+      records.length = 0;
     }
   }
 
-  recordsForCurrentDay.push(record);
+  records.push(record);
 }
