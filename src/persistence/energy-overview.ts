@@ -5,14 +5,14 @@ type Record = {
   energyOverview: EnergyOverview;
 }
 
-const records: Record[] = [];
+let current: Record | undefined = undefined;
 
 const latestRecord = (): Record | undefined => {
-  if (records.length === 0) {
+  if (!current) {
     return;
   }
 
-  return records[records.length - 1];
+  return current;
 };
 
 export const latestForCurrentDay = (): EnergyOverview => {
@@ -38,26 +38,11 @@ const datesAreSameDay = (a: Date, b: Date) => {
          a.getDate() === b.getDate();
 }
 
-export const reset = () => {
-  records.length = 0;
-};
-
 export const save = (energyOverview: EnergyOverview) => {
   const timestamp = new Date();
-  const date = timestamp.toISOString().split('T')[0];
 
-  const record = {
+  current = {
     timestamp: timestamp.toISOString(),
     energyOverview: energyOverview
   };
-
-  if (records.length > 0) {
-    const latestRecord = records[records.length - 1];
-    if (date !== latestRecord.timestamp.split('T')[0]) {
-      // clear in memory records if day has changed
-      records.length = 0;
-    }
-  }
-
-  records.push(record);
 }

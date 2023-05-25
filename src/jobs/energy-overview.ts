@@ -1,7 +1,7 @@
 import cron from 'node-cron';
 import { Config } from '../config';
 import { getEnergyOverview } from '../solaredge-client';
-import { reset, save } from '../persistence/energy-overview';
+import { save } from '../persistence/energy-overview';
 
 export const start = async ({apiKey, siteId}: Config) => {
   console.log('Starting energy overview monitor');
@@ -16,10 +16,5 @@ export const start = async ({apiKey, siteId}: Config) => {
     save(overview);
   }, {
     runOnInit: true
-  });
-
-  cron.schedule('55 23 * * *', async () => {
-    console.log('Resetting daily metrics')
-    reset();
   });
 }

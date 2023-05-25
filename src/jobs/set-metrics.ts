@@ -16,10 +16,14 @@ import {
 export const start = () => {
   console.log('Starting set metrics job');
 
-  cron.schedule('*/15 * * * * *', () => {
+  cron.schedule('30 * 2-23 * * *', () => {
     const overview = latestOverview();
     if (!overview) {
-      return;
+      lastDay.set(0);
+      lastMonth.set(0);
+      lastYear.set(0);
+      lifeTime.set(0);
+      currentPower.set(0);
     }
 
     lastDay.set(overview.lastDayData.energy);
