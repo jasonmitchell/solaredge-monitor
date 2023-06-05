@@ -2,5 +2,5 @@
 
 export $(cat .env | xargs)
 
-mkdir -p ./.remote/data
-scp -r $SSH_ADDR:/usr/local/solaredge/data ./.remote/
+mkdir -p ./.remote/logs
+scp -r $SSH_ADDR:~/.pm2/logs ./.remote/
