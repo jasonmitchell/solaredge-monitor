@@ -19,7 +19,7 @@
     "typescript": "^5.0.4"
   },
   "dependencies": {
-    "node-cron": "^3.0.2",
+    "node-cron": "^4.2.1",
     "prom-client": "^14.2.0"
   }
 }
